@@ -1,2 +1,5 @@
 venv_app
 deployments/data/db
+*pyc
+__pycache__
+

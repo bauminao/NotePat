@@ -34,12 +34,32 @@ help:
 	{ lastLine = $$0 }' $(MAKEFILE_LIST) | sort
 	printf "\n"
 
-run_local:
+
+## 
+venv: app/venv_app/bin/activate
+
+## 
+app/venv_app/bin/activate: app/requirements.txt
+	test -d app/venv_app || python3 -m venv app/venv_app
+	source app/venv_app/bin/activate; pip install -Ur app/requirements.txt 
+	touch app/venv_app/bin/activate
+
+## run local flask. You need docker-mongodb anyway.
+local: venv
 	printf "\n${COLOR_YELLOW}Be sure you started \"deploy\", too. "
 	printf "Because you will be in need of the mongodb.\n\n${COLOR_RESET}"
 	printf "Docker-version will run on port 5000, Local version will run on port 5001.\n\n"
 
-	source app/venv_app/bin/activate && cd app && flask run --host=0.0.0.0 --port=5001
+	source app/venv_app/bin/activate ; cd app ; flask run --host=0.0.0.0 --port=5001 
 
+## stop docker environment
 stop_docker:
 	docker-compose -f deployments/docker-compose.yml down -v
+
+## CleanUp carbage files
+clean: 
+	find -iname "*.pyc" -delete
+
+## Reset full local environment
+reset: clean 
+	rm -rf app/venv_app
