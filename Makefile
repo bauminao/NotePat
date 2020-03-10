@@ -50,7 +50,7 @@ local: venv
 	printf "Because you will be in need of the mongodb.\n\n${COLOR_RESET}"
 	printf "Docker-version will run on port 5000, Local version will run on port 5001.\n\n"
 
-	source app/venv_app/bin/activate ; cd app ; flask run --host=0.0.0.0 --port=5001 
+	source app/venv_app/bin/activate ; cd app ; export FLASK_ENV=development ; flask run --host=127.0.0.1 --port=5000 
 
 ## stop docker environment
 stop_docker:
