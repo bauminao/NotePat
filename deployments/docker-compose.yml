@@ -1,12 +1,12 @@
 version: "2"
 services:
-  app:
-    container_name: simple-app
-    build:
-      context: ../
-      dockerfile: deployments/app/Dockerfile
-    ports:
-      - "5000:5000"
+  #  app:
+  #    container_name: notepat-app
+  #    build:
+  #      context: ../
+  #      dockerfile: deployments/app/Dockerfile
+  #    ports:
+  #      - "5000:5000"
   mongodb:
     image: mongo:latest
     container_name: "mongodb"
@@ -16,7 +16,13 @@ services:
       - MONGODB_USER="mongouser"
       - MONGODB_PASS="mongopass"
     volumes:
-      - ./data/db:/data/db
+      - mongodb-data:/data/db
+        #      - ./data/db:/data/db
     ports:
       - 27017:27017
     command: mongod --smallfiles --logpath=/dev/null # --quiet
+volumes:
+  mongodb-data:
+    external:
+      name: mongodb-data
+
