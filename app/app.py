@@ -3,6 +3,9 @@
 from flask import Flask, render_template, request, jsonify
 from flask_pymongo import PyMongo
 
+#from json import dumps
+import json
+
 app = Flask(__name__)
 
 app.config["MONGO_DBNAME"] = 'NotePatDB'
@@ -14,18 +17,33 @@ mongo = PyMongo(app)
 
 
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST', 'DELETE'])
 def hello():
-    return render_template('index.html')
+    if request.method == 'GET':
+      return render_template('index.html')
 
 @app.route("/mongodb", methods=['GET', 'POST', 'DELETE', 'PATCH'])
 def mongodb():
     if request.method == 'GET':
-        _db = mongo.db.NotePatDB
+        _notes = mongo.db.notes
         output = []
-        for _item in _db.find():
+        for _item in _notes.find():
             output.append(_item)
-        return jsonify({'result' : output})
+        #return jsonify({'result' : output})
+        print (output)
+        #return json.dumps(output, sort_keys=True, indent=4)
+        return "Buggy"
+
+@app.route("/init", methods=['GET'])
+def init_db():
+    if request.method == 'GET':
+        _notes = mongo.db.notes
+        OneNote = {"Prio" : 1 , "title" : "Test Init data"}
+
+        recordID = _notes.insert(OneNote)
+        print ("Record ID: " + str(recordID))
+        return str(recordID)
+
 
 
 if __name__ == '__main__':
