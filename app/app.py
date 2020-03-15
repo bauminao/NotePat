@@ -3,7 +3,7 @@
 from flask import Flask, render_template, request, jsonify
 from flask_pymongo import PyMongo
 
-#from json import dumps
+from bson import json_util
 import json
 
 app = Flask(__name__)
@@ -28,11 +28,22 @@ def mongodb():
         _notes = mongo.db.notes
         output = []
         for _item in _notes.find():
-            output.append(_item)
-        #return jsonify({'result' : output})
+            _myjson = _item
+            print ("Debug:")
+            print (_myjson.pop('_id'))
+            output.append(_myjson)
         print (output)
+        return jsonify(output)
+
+@app.route("/mongo2", methods=['GET', 'POST', 'DELETE', 'PATCH'])
+def mongodb2():
+    if request.method == 'GET':
+        _notes = mongo.db.notes
+        output = []
+        for _item in _notes.find():
+            output.append(_item)
         #return json.dumps(output, sort_keys=True, indent=4)
-        return "Buggy"
+        return (jsonify(json.loads(json_util.dumps(output))))
 
 @app.route("/init", methods=['GET'])
 def init_db():
