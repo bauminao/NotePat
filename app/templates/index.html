@@ -55,22 +55,27 @@
       <div class="row">
         <div class="col-sm-1"> ... </div>
         <div class="col-sm-6">
-          <form class="form-inline" action="" method="POST">
-            <div class="form-group mr-2">
+          <div class="form-group mr-2">
+            <form class="form-inline">
               <label class="sr-only" for="inputTitle">Title</label>
-              <input type="email" class="form-control" id="inputTitle" placeholder="&#9998; Title">
-            </div>
-          </form>
+              <input type="text" class="form-control" id="inputTitle" placeholder="&#9998; Title">
+            </form>
+          </div>
         </div>
         <div class="col-sm-3">
           <div class="form-group mr-2">
-            <label class="sr-only" for="inputStartEnd">StartEnd</label>
-            <input type="email" class="form-control" id="inputStartEnd" placeholder="&#9998; StartEnd">
+            <form class="form-inline">
+              <label class="sr-only" for="inputStartEnd">StartEnd</label>
+              <input type="text" class="form-control" id="inputStartEnd" placeholder="&#9998; StartEnd">
+            </form>
           </div>
         </div>
         <div class="col-sm-2">
-          <button type="submit" class="btn btn-primary">Add</button> 
-          <button type="submit" class="btn btn-primary">&#10006;</button> 
+          <form class="form-inline" action="" method="POST">
+            <button type="submit" class="btn btn-primary">Add</button> 
+            &nbsp;
+            <button type="submit" class="btn btn-primary">&#10006;</button> 
+          </form>
         </div>
       </div>
 

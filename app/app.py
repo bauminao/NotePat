@@ -21,6 +21,14 @@ mongo = PyMongo(app)
 def hello():
     if request.method == 'GET':
       return render_template('index.html')
+    elif request.method == 'POST':
+      ####_value = request.form  
+      #####_value = 1
+      ####print ("Debug : " , end='')
+      ####for _item in _value:
+      ####    print (_item)
+      return render_template('index.html')
+
 
 @app.route("/mongodb", methods=['GET', 'POST', 'DELETE', 'PATCH'])
 def mongodb():
